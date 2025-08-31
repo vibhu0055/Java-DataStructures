@@ -1,0 +1,62 @@
+/* Customized int type ArrayList implementation, with functions like 
+ * add , remove , size ,
+ */
+
+import java.util.Arrays;
+class Arraylist {
+    private int[] data;
+    private int size = 0;
+    private int defaults = 10;
+
+    public Arraylist() {
+        this.data = new int[defaults];
+    }
+
+    public void add(int num) {
+        if (this.isfull()) {
+            resize();
+        }
+        data[size++] = num;
+    }
+
+    private boolean isfull() {
+        return size == data.length;
+    }
+
+    private void resize() {
+        int[] temp = new int[data.length * 2];
+        for (int i = 0; i < data.length; i++) {
+            temp[i] = data[i];
+        }
+        data = temp;
+    }
+    public int size(){
+        return size;
+    }
+    public void remove(int num){
+        for(int i = 0; i<data.length; i++){
+            if(num == data[i]){
+                for(int j = i; j<data.length-1; j++){
+                    data[j] = data [j+1];
+                }
+                size--;
+                break;
+            }
+        }
+    }
+
+    public String print() {
+        return Arrays.toString(Arrays.copyOf(data, size));
+    }
+
+    public static void main(String[] args) {
+        Arraylist a = new Arraylist();
+        for(int i= 0; i<12 ; i++){
+            a.add(i);
+        }
+        a.remove(5);
+        System.out.println(a.print());
+
+    }
+
+}
